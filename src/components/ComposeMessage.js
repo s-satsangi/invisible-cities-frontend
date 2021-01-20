@@ -10,7 +10,7 @@ export default function ComposeMessage(props) {
 
   const setFetch = (event) => {
     event.preventDefault();
-    console.log("setFetch");
+    console.log("setFetch for posting a brand new message");
     fetch("http://localhost:3000/message", {
       method: "POST",
       headers: {
