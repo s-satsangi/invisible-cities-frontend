@@ -2,7 +2,7 @@ import "./App.css";
 import Login from "./components/login";
 import UserForm from "./containers/UserForm";
 import ComposeMessage from "./components/ComposeMessage";
-
+import MessageBox from "./containers/MessageBox";
 function App() {
   return (
     <div className="App">
@@ -25,6 +25,8 @@ function App() {
       <UserForm />
       <h1> Write a Message Here </h1>
       <ComposeMessage />
+      <h1> The Messages Component </h1>
+      <MessageBox />
     </div>
   );
 }
