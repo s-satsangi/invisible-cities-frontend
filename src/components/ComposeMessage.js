@@ -11,6 +11,17 @@ export default function ComposeMessage(props) {
   const setFetch = (event) => {
     event.preventDefault();
     console.log("setFetch for posting a brand new message");
+    // set body before clobbering state
+    //let fetchBod = JSON.stringify(
+    let message = {
+      body: body,
+      user1: user1,
+      user2: user2,
+    };
+
+    setbody("");
+    setuser1("");
+    setuser2("");
     fetch("http://localhost:3000/message", {
       method: "POST",
       headers: {
@@ -19,13 +30,7 @@ export default function ComposeMessage(props) {
         "Access-Control-Allow-Credentials": true,
       },
       credentials: "include",
-      body: JSON.stringify({
-        message: {
-          body,
-          user1,
-          user2,
-        },
-      }),
+      body: JSON.stringify({ message }),
     })
       .then((resp) => {
         if (resp.status === 401) throw resp;
@@ -44,7 +49,7 @@ export default function ComposeMessage(props) {
 
   return (
     <div>
-      <form onSubmit={(event) => setFetch(event)}>
+      <form id="new-message" onSubmit={(event) => setFetch(event)}>
         {error ? (
           <Alert severity="error">
             {" "}
