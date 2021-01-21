@@ -40,5 +40,10 @@ export default function MessageBox() {
     ));
   };
 
-  return <div>{displayMessage()}</div>;
+  return (
+    <>
+      <h1> Your Messages </h1>
+      <div>{displayMessage()}</div>
+    </>
+  );
 }

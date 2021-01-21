@@ -7,8 +7,10 @@ export default function Login(props) {
   // const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const setFetch = (event) => {
+  const setFetch = (event, props) => {
     event.preventDefault();
+    props.setLogin(true);
+    props.setUser(23);
     console.log("setFetch");
     fetch("http://localhost:3000/login", {
       method: "POST",
@@ -44,7 +46,7 @@ export default function Login(props) {
 
   return (
     <div>
-      <form onSubmit={(event) => setFetch(event)}>
+      <form onSubmit={(event) => setFetch(event, props)}>
         {error ? (
           <Alert severity="error">
             {" "}
