@@ -59,7 +59,9 @@ function App() {
 
           <Route
             path="/all-users"
-            render={() => <AllUsers user={user} login={login} />}
+            render={() => (
+              <AllUsers userId={userId} username={username} login={login} />
+            )}
           />
           {/* <Route
             path="/friends"
