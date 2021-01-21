@@ -49,6 +49,7 @@ export default function ComposeMessage(props) {
 
   return (
     <div>
+      <h1>Write a Message Here!</h1>
       <form id="new-message" onSubmit={(event) => setFetch(event)}>
         {error ? (
           <Alert severity="error">

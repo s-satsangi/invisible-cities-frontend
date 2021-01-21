@@ -1,32 +1,48 @@
 import "./App.css";
+import React, { useState } from "react";
 import Login from "./components/login";
 import UserForm from "./containers/UserForm";
 import ComposeMessage from "./components/ComposeMessage";
 import MessageBox from "./containers/MessageBox";
+import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+
 function App() {
+  const [user, setUser] = useState(1);
+  const [login, setLogin] = useState(false);
+
   return (
     <div className="App">
-      {/* <header className="App-header"> */}
-      {/* <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p> */}
-      {/* <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
-      {/* </header> */}
-      <h1> Log In Here </h1>
-      <Login />
-      <h1> New User Here </h1>
-      <UserForm />
-      <h1> Write a Message Here </h1>
-      <ComposeMessage />
-      <h1> The Messages Component </h1>
-      <MessageBox />
+      <Router>
+        <Link to="/">
+          <h3>Home</h3>
+        </Link>
+        <Link to="/login">
+          <h3> Log In Here </h3>
+        </Link>
+        <Link to="/signup">
+          <h3> New User Here </h3>
+        </Link>
+        <Link to="/newMessage">
+          <h3> Write a Message Here </h3>
+        </Link>
+        <Link to="/your-chats">
+          <h3>Messages for you</h3>
+        </Link>
+        <div>
+          <Route path="/newMessage" render={() => <ComposeMessage />} />
+          <Route
+            path="/"
+            exact={true}
+            render={() => <h1> Welcome to Invisible Cities </h1>}
+          />
+          <Route
+            path="/login"
+            render={() => <Login setUser={setUser} setLogin={setLogin} />}
+          />
+          <Route path="/signup" render={() => <UserForm />} />
+          <Route path="/your-chats" render={() => <MessageBox />} />
+        </div>
+      </Router>
     </div>
   );
 }
