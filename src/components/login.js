@@ -3,14 +3,14 @@ import { TextField } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 // import UserForm from "../containers/UserForm";
 export default function Login(props) {
-  const [username, setusername] = useState("");
+  // const [username, setusername] = useState("");
   // const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
 
   const setFetch = (event, props) => {
     event.preventDefault();
-    props.setLogin(true);
-    props.setUser(23);
+    // props.setLogin(true);
+    // props.setUser(23);
     console.log("setFetch");
     fetch("http://localhost:3000/login", {
       method: "POST",

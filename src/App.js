@@ -8,7 +8,8 @@ import Friendlist from "./containers/Friendlist";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
 function App() {
-  const [user, setUser] = useState(1);
+  const [userId, setUserId] = useState(1);
+  const [username, setUsername] = useState("");
   const [login, setLogin] = useState(false);
 
   return (
@@ -41,12 +42,20 @@ function App() {
           />
           <Route
             path="/login"
-            render={() => <Login setUser={setUser} setLogin={setLogin} />}
+            render={() => (
+              <Login
+                setUserId={setUserId}
+                setLogin={setLogin}
+                setUsername={setUsername}
+              />
+            )}
           />
           <Route path="/signup" render={() => <UserForm />} />
           <Route
             path="/friends"
-            render={() => <Friendlist user={user} login={login} />}
+            render={() => (
+              <Friendlist userId={userId} username={username} login={login} />
+            )}
           />
           <Route path="/your-chats" render={() => <MessageBox />} />
         </div>

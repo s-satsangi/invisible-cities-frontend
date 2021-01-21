@@ -1,10 +1,26 @@
 import React, { useState, useEffect } from "react";
 
-export default function Friendlist() {
+export default function Friendlist(props) {
   const [friends, setFriends] = useState([]);
 
   const setFetch = () => {
     event.preventDefault();
+    console.log("Hol Up. Getting your friends");
+    fetch("http://localhost:3000/friends", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        user: {
+          user: props.user,
+          // password,
+        },
+      }),
+    });
   };
 
   return (
