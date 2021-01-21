@@ -31,7 +31,7 @@ function App() {
           <h3> Write a Message Here </h3>
         </Link>
         <Link to="/your-chats">
-          <h3>Messages for you</h3>
+          <h3>Messages for {username === "" ? you : { username }}</h3>
         </Link>
         <div>
           <Route path="/newMessage" render={() => <ComposeMessage />} />
