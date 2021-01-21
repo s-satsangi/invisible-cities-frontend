@@ -5,8 +5,6 @@ import UserForm from "./containers/UserForm";
 import ComposeMessage from "./components/ComposeMessage";
 import MessageBox from "./containers/MessageBox";
 import AllUsers from "./containers/AllUsers";
-import Friendlist from "./containers/Friendlist";
-
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
 function App() {
@@ -61,7 +59,10 @@ function App() {
 
           <Route
             path="/all-users"
-            render={() => <AllUsers user={user} login={login} />}
+            render={() => (
+              <AllUsers userId={userId} username={username} login={login} />
+            )}
+          />
           {/* <Route
             path="/friends"
             render={() => (

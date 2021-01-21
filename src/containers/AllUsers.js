@@ -10,11 +10,8 @@ export default function AllUsers(props) {
       .then((resp) => resp.json())
       .then((usrs) => {
         // debugger;
-        console.log("in fetch usrs: " + usrs.users);
         setUsers(usrs.users);
       });
-
-    users.forEach((user) => console.log(user.username));
   };
 
   useEffect(() => {
@@ -22,10 +19,8 @@ export default function AllUsers(props) {
   }, []);
 
   const displayUsers = () => {
-    users?.forEach((user) => console.log("map users: " + user.username));
-
-    return users?.map((user) => {
-      <User key={user.id} user={user.username} />;
+    return users.map((user) => {
+      return <User key={user.id} user={user.username} />;
     });
   };
 
