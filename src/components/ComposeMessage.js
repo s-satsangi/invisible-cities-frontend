@@ -4,7 +4,7 @@ import Alert from "@material-ui/lab/Alert";
 
 export default function ComposeMessage(props) {
   const [body, setbody] = useState("");
-  const [user1, setuser1] = useState("");
+  // const [user1, setuser1] = useState("");
   const [user2, setuser2] = useState("");
   const [error, setError] = useState("");
 
@@ -15,14 +15,14 @@ export default function ComposeMessage(props) {
     //let fetchBod = JSON.stringify(
     let message = {
       body: body,
-      user1: user1,
+      user1: props.userId,
       user2: user2,
     };
 
     setbody("");
-    setuser1("");
+    // setuser1("");
     setuser2("");
-    fetch("http://localhost:3000/message", {
+    fetch("http://localhost:3000/create-message", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -64,13 +64,13 @@ export default function ComposeMessage(props) {
           value={body}
           onChange={(e) => setbody(e.target.value)}
         />
-        &nbsp;
+        {/* &nbsp;
         <TextField
           type="text"
           placeholder="User1"
           value={user1}
           onChange={(e) => setuser1(e.target.value)}
-        />
+        /> */}
         &nbsp;
         <TextField
           type="text"

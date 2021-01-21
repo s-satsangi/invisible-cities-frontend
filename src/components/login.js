@@ -3,14 +3,14 @@ import { TextField } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 // import UserForm from "../containers/UserForm";
 export default function Login(props) {
-  const [username, setusername] = useState("");
+  const [stateUsername, setStateUsername] = useState("");
   // const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const setFetch = (event, props) => {
     event.preventDefault();
-    props.setLogin(true);
-    props.setUser(23);
+    // props.setLogin(true);
+    // props.setUser(23);
     console.log("setFetch");
     fetch("http://localhost:3000/login", {
       method: "POST",
@@ -22,7 +22,7 @@ export default function Login(props) {
       credentials: "include",
       body: JSON.stringify({
         user: {
-          username,
+          username: stateUsername,
           // password,
         },
       }),
@@ -32,9 +32,10 @@ export default function Login(props) {
         return resp.json();
       })
       .then((user) => {
-        props.login(true);
-        props.setUsername(user.user);
-        props.setUserId(user.uid);
+        props.setLogin(true);
+        props.setUsername(user.user[0].username);
+        props.setUserId(user.user[0].id);
+        console.log("I thought it all set!");
         return;
       })
       .catch((err) => {
@@ -57,8 +58,8 @@ export default function Login(props) {
         <TextField
           type="text"
           placeholder="username"
-          value={username}
-          onChange={(e) => setusername(e.target.value)}
+          value={stateUsername}
+          onChange={(e) => setStateUsername(e.target.value)}
         />
         &nbsp;
         {/* <TextField

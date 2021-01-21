@@ -5,10 +5,13 @@ import UserForm from "./containers/UserForm";
 import ComposeMessage from "./components/ComposeMessage";
 import MessageBox from "./containers/MessageBox";
 import AllUsers from "./containers/AllUsers";
+import Friendlist from "./containers/Friendlist";
+
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
 function App() {
-  const [user, setUser] = useState(1);
+  const [userId, setUserId] = useState(1);
+  const [username, setUsername] = useState("");
   const [login, setLogin] = useState(false);
 
   return (
@@ -30,10 +33,15 @@ function App() {
           <h3> Write a Message Here </h3>
         </Link>
         <Link to="/your-chats">
-          <h3>Messages for you</h3>
+          <h3>Messages for {username === "" ? "you" : `${username}`}</h3>
         </Link>
         <div>
-          <Route path="/newMessage" render={() => <ComposeMessage />} />
+          <Route
+            path="/newMessage"
+            render={() => (
+              <ComposeMessage userId={userId} username={username} />
+            )}
+          />
           <Route
             path="/"
             exact={true}
@@ -41,14 +49,29 @@ function App() {
           />
           <Route
             path="/login"
-            render={() => <Login setUser={setUser} setLogin={setLogin} />}
+            render={() => (
+              <Login
+                setUserId={setUserId}
+                setLogin={setLogin}
+                setUsername={setUsername}
+              />
+            )}
           />
           <Route path="/signup" render={() => <UserForm />} />
+
           <Route
             path="/all-users"
             render={() => <AllUsers user={user} login={login} />}
+          {/* <Route
+            path="/friends"
+            render={() => (
+              <Friendlist userId={userId} username={username} login={login} />
+            )}
+          /> */}
+          <Route
+            path="/your-chats"
+            render={() => <MessageBox username={username} userId={userId} />}
           />
-          <Route path="/your-chats" render={() => <MessageBox />} />
         </div>
       </Router>
     </div>

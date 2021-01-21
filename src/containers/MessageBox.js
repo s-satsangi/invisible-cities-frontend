@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from "react";
 import Message from "../components/Message";
 
-export default function MessageBox() {
+export default function MessageBox(props) {
   // set state vars here using useState
   const [messages, setmessages] = useState([]);
   const [user, setUser] = useState(2);
@@ -15,7 +15,19 @@ export default function MessageBox() {
   const setFetch = () => {
     // event.preventDefault();
     console.log("setFetch for getting messages for a user");
-    fetch("http://localhost:3000/message", { method: "GET" })
+    let user = {
+      userId: props.userId,
+    };
+    fetch("http://localhost:3000/message", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+      credentials: "include",
+      body: JSON.stringify({ user }),
+    })
       .then((res) => res.json())
       .catch((err) => console.log(err))
       .then((msgs) => {
