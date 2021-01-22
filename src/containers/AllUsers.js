@@ -34,7 +34,13 @@ export default function AllUsers(props) {
         </Link>
         <Route
           path="/friends"
-          render={() => <Friendlist user={props.user} login={props.login} />}
+          render={() => (
+            <Friendlist
+              username={props.username}
+              userId={props.userId}
+              login={props.login}
+            />
+          )}
         />
       </Router>
     </div>

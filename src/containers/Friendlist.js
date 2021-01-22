@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
+import Friend from "../components/Friend";
 
 export default function Friendlist(props) {
   const [friends, setFriends] = useState([]);
 
   const setFetch = () => {
-    event.preventDefault();
     console.log("Hol Up. Getting your friends");
     fetch("http://localhost:3000/friends", {
       method: "POST",
@@ -15,17 +15,30 @@ export default function Friendlist(props) {
       },
       credentials: "include",
       body: JSON.stringify({
-        user: {
-          user: props.user,
+        follow: {
+          userId: props.userId,
           // password,
         },
       }),
+    })
+      .then((resp) => resp.json())
+      .then((buds) => setFriends(buds.friends));
+  };
+
+  useEffect(() => {
+    setFetch();
+  }, []);
+
+  const listBuds = () => {
+    return friends.map((bud) => {
+      return <Friend key={bud.id} username={bud.username} />;
     });
   };
 
   return (
     <div>
       <h1> Friendlist </h1>
+      <div>{listBuds()}</div>
     </div>
   );
 }
