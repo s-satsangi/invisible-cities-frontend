@@ -3,6 +3,8 @@ import { TextField } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 // import UserForm from "../containers/UserForm";
 export default function Login(props) {
+  // const initialUsername = () => window.localStorage.getItem("username");
+  // const [username, setUsername] = useState(initialUsername);
   const [stateUsername, setStateUsername] = useState("");
   // const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -32,10 +34,16 @@ export default function Login(props) {
         return resp.json();
       })
       .then((user) => {
-        props.setLogin(true);
-        props.setUsername(user.user[0].username);
-        props.setUserId(user.user[0].id);
         console.log("I thought it all set!");
+        // props.setLogin(true);
+        localStorage.setItem("login", true);
+
+        // props.setUsername(user.user[0].username);
+        localStorage.setItem("username", user.user[0].username);
+
+        // props.setUserId(user.user[0].id);
+        window.localStorage.setItem("userId", user.user[0].id);
+
         return;
       })
       .catch((err) => {

@@ -22,7 +22,10 @@ export default function Friendlist(props) {
       }),
     })
       .then((resp) => resp.json())
-      .then((buds) => setFriends(buds.friends));
+      .then((buds) => {
+        localStorage.setItem("friends", buds.friends);
+        setFriends(buds.friends);
+      });
   };
 
   useEffect(() => {
