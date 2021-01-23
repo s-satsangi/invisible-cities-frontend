@@ -3,11 +3,7 @@ import { Container, TextField } from "@material-ui/core";
 
 export default class UserForm extends Component {
   state = {
-    // firstname: "",
-    // lastname: "",
     username: "",
-    // password: "",
-    // passwordConfirm: "",
     submit: false,
   };
 
@@ -15,10 +11,7 @@ export default class UserForm extends Component {
     event.preventDefault();
     const data = {
       user: {
-        // first_name: this.state.firstname,
-        // last_name: this.state.lastname,
         username: this.state.username,
-        // password: this.state.password,
       },
     };
     fetch("http://localhost:3000/users", {
@@ -42,32 +35,10 @@ export default class UserForm extends Component {
     });
   };
 
-  //   passwordHandler = (event) => {
-  //     this.setState({ passwordConfirm: event.target.value });
-  //     this.state.password === event.target.value
-  //       ? this.setState({ submit: true })
-  //       : this.setState({ submit: false });
-  //   };
-
   render() {
     return (
       <Container>
         <form onSubmit={this.createUser}>
-          {/* <TextField
-            required
-            label="First Name"
-            className="userform"
-            onChange={(event) => this.inputHandler(event, "firstname")}
-          /> */}
-          {/* <br />
-          <br />
-          <TextField
-            required
-            label="Last Name"
-            className="userform"
-            onChange={(event) => this.inputHandler(event, "lastname")}
-          />
-          <br /> */}
           <br />
           <TextField
             required
@@ -77,23 +48,6 @@ export default class UserForm extends Component {
           />
           <br />
           <br />
-          {/* <TextField
-            required
-            label="Password"
-            className="userform"
-            type="password"
-            onChange={(event) => this.inputHandler(event, "password")}
-          />
-          <br /> */}
-          {/* <br />
-          <TextField
-            required
-            label="Confirm Password"
-            className="userform"
-            type="password"
-            onChange={(event) => this.passwordHandler(event)}
-          />
-          <br /> */}
           <br />
           {/* {this.state.submit ? ( */}
           <TextField type="submit" />

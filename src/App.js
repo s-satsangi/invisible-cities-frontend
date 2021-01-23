@@ -1,99 +1,77 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import Login from "./components/login";
-import UserForm from "./containers/UserForm";
-import ComposeMessage from "./components/ComposeMessage";
-import MessageBox from "./containers/MessageBox";
-import AllUsers from "./containers/AllUsers";
+import UserContainer from "./containers/UserContainer";
+import UserForm from "./components/UserForm";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
 function App() {
   const [userId, setUserId] = useState("");
   const [username, setUsername] = useState("");
   const [login, setLogin] = useState(false);
+  // const [newUser, setNewUser] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("username", username);
     localStorage.setItem("userId", userId);
     localStorage.setItem("login", login);
+    // localStorage.setItem("newUser", newUser);
   }, [username, userId, login]);
 
   return (
     <div className="App">
       <Router>
+        {/* link area is one of two conditions */}
+
+        {/* links that should always be available go here */}
         <Link to="/">
           <h3>Home</h3>
         </Link>
-        <Link to="/login">
-          <h3> Log In Here </h3>
-        </Link>
-        <Link to="/signup">
-          <h3> New User Here </h3>
-        </Link>
-        <Link to="/all-users">
-          <h3> See all users </h3>
-        </Link>
-        <Link to="/newMessage">
-          <h3> Write a Message Here </h3>
-        </Link>
-        <Link to="/your-chats">
+
+        {/* if login is false, prompt for new user or login */}
+        {/* if login is true, render the user container */}
+        {/* */}
+        {/* {localStorage.getItem("login") ? ( */}
+        <>
+          <Link to="/login" hidden={login}>
+            <h3> Log In Here </h3>
+          </Link>
+          <Link to="/signup" hidden={login}>
+            <h3> New User? Sign Up Here </h3>
+          </Link>
+        </>
+        {/* ) : ( */}
+        <Link to="/citizen" hidden={!login}>
           <h3>
-            Messages for{" "}
-            {localStorage.getItem("username") === ""
-              ? "you"
-              : `${localStorage.getItem("username")}`}
+            Welcome to Invisible Cities, {localStorage.getItem("username")}.
+            Click here to enter.
           </h3>
         </Link>
+        {/* )} */}
+
+        {/* the render div.  what the user clicks, they'll see in this div */}
         <div>
-          <Route
-            path="/newMessage"
-            render={() => (
-              <ComposeMessage
-                userId={localStorage.getItem("userId")}
-                username={localStorage.getItem("username")}
-              />
-            )}
-          />
-          <Route
-            path="/"
-            exact={true}
-            render={() => <h1> Welcome to Invisible Cities </h1>}
-          />
+          {/* no options selected, render nothing */}
+          {/* <Route path="/" render={<></>} /> */}
+
+          {/* the components that render when login is false */}
           <Route
             path="/login"
             render={() => (
               <Login
-              // setUserId={setUserId}
-              // setLogin={setLogin}
-              // setUsername={setUsername}
+                setUserId={setUserId}
+                setUsername={setUsername}
+                setLogin={setLogin}
               />
             )}
           />
           <Route path="/signup" render={() => <UserForm />} />
 
+          {/* User has logged in and clicked enter.  Render the User Container here */}
           <Route
-            path="/all-users"
-            render={() => (
-              <AllUsers
-              // userId={localStorage.getItem("userId")}
-              // username={username}
-              // login={login}
-              />
-            )}
-          />
-          {/* <Route
-            path="/friends"
-            render={() => (
-              <Friendlist userId={userId} username={username} login={login} />
-            )}
-          /> */}
-          <Route
-            path="/your-chats"
-            render={() => (
-              <MessageBox
-              // username={username} userId={userId}
-              />
-            )}
+            path="/citizen"
+            exact={true}
+            render={() => <UserContainer />}
           />
         </div>
       </Router>
