@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Login from "./components/login";
 import UserForm from "./containers/UserForm";
 import ComposeMessage from "./components/ComposeMessage";
@@ -8,9 +8,15 @@ import AllUsers from "./containers/AllUsers";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
 function App() {
-  const [userId, setUserId] = useState(1);
+  const [userId, setUserId] = useState("");
   const [username, setUsername] = useState("");
   const [login, setLogin] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("username", username);
+    localStorage.setItem("userId", userId);
+    localStorage.setItem("login", login);
+  }, [username, userId, login]);
 
   return (
     <div className="App">
@@ -31,13 +37,21 @@ function App() {
           <h3> Write a Message Here </h3>
         </Link>
         <Link to="/your-chats">
-          <h3>Messages for {username === "" ? "you" : `${username}`}</h3>
+          <h3>
+            Messages for{" "}
+            {localStorage.getItem("username") === ""
+              ? "you"
+              : `${localStorage.getItem("username")}`}
+          </h3>
         </Link>
         <div>
           <Route
             path="/newMessage"
             render={() => (
-              <ComposeMessage userId={userId} username={username} />
+              <ComposeMessage
+                userId={localStorage.getItem("userId")}
+                username={localStorage.getItem("username")}
+              />
             )}
           />
           <Route
@@ -49,9 +63,9 @@ function App() {
             path="/login"
             render={() => (
               <Login
-                setUserId={setUserId}
-                setLogin={setLogin}
-                setUsername={setUsername}
+              // setUserId={setUserId}
+              // setLogin={setLogin}
+              // setUsername={setUsername}
               />
             )}
           />
@@ -60,7 +74,11 @@ function App() {
           <Route
             path="/all-users"
             render={() => (
-              <AllUsers userId={userId} username={username} login={login} />
+              <AllUsers
+              // userId={localStorage.getItem("userId")}
+              // username={username}
+              // login={login}
+              />
             )}
           />
           {/* <Route
@@ -71,7 +89,11 @@ function App() {
           /> */}
           <Route
             path="/your-chats"
-            render={() => <MessageBox username={username} userId={userId} />}
+            render={() => (
+              <MessageBox
+              // username={username} userId={userId}
+              />
+            )}
           />
         </div>
       </Router>
