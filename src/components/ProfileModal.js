@@ -28,11 +28,45 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//fetch number friends
+//fetch number blocked
+
 export default function SimpleModal() {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = React.useState(getModalStyle);
-  const [open, setOpen] = React.useState(false);
+  const [modalStyle] = useState(getModalStyle);
+  const [open, setOpen] = useState(false);
+  const [numFriends, setNumFriends] = useState(-1);
+  const [numBlocked, setNumBlocked] = useState(-1);
+
+  const getNumberFollows = () => {
+    const data = {
+      user: {
+        username: localStorage.getItem("username"),
+      },
+    };
+    fetch("http://localhost:3000/numfriends", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        setNumFriends(json.followers);
+        setNumBlocked(json.blocked);
+        localStorage.setItem("numFriends", json.followers);
+        localStorage.setItem("numBlocked", json.blocked);
+        // debugger;
+        if (json.status) throw json;
+      })
+      .catch((err) => alert(`${err.message}`));
+  };
+
+  useEffect(() => {
+    getNumberFollows();
+  }, []);
 
   const handleOpen = () => {
     setOpen(true);
@@ -44,13 +78,16 @@ export default function SimpleModal() {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">Text in a modal</h2>
+      <h2 id="simple-modal-title">
+        <em>profile for {localStorage.getItem("username")}</em>
+      </h2>
       <p id="simple-modal-description">
-        Fetch in this object, populate the body with: Profile info (for now
-        username, but want avatar and bio) Edit Function? (Maybe clicking an
-        edit Icon will let you type new text, submit via fetch?)
-        #friends/#blocks (clicking takes you to the Friends Modal) Duis mollis,
-        est non commodo luctus, nisi erat porttitor ligula.
+        <br></br>
+        <em>You have {localStorage.getItem("numFriends")} friends</em>
+        <br></br>
+        <em>
+          You have been blocked by {localStorage.getItem("numBlocked")} users
+        </em>
       </p>
       <SimpleModal />
     </div>

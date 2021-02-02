@@ -32,7 +32,7 @@ export default function Login(props) {
         props.setLogin(true);
         localStorage.setItem("login", true);
         console.log(
-          "If it works it works buddy. + login: " +
+          "If it works, it works, buddy. + login: " +
             localStorage.getItem("login")
         );
         localStorage.setItem("username", user.user[0].username);

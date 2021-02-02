@@ -4,6 +4,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import FriendModal from "./FriendModal";
 
 export default function YourFriends() {
   return (
@@ -22,6 +23,7 @@ export default function YourFriends() {
             , where you will be able to view a list of friends, search for and
             add new friends, and block trouble buddies
           </Typography>
+          <FriendModal />
         </CardContent>
       </Card>
     </div>

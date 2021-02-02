@@ -12,16 +12,13 @@ export default function YourProfile() {
       <Card variant="outlined">
         <CardContent>
           <Typography variant="h5" component="h2">
-            This is your profile, {localStorage.getItem("username")}
+            Open your profile by clicking here,{" "}
+            {localStorage.getItem("username")}
           </Typography>
-          Clicking here, will take you to{" "}
-          <Typography variant="h5" color="red" component="h2">
+
+          <Typography variant="h5" component="h2">
             your profile view / edit modal
           </Typography>
-          , where you will able to see your name, and if there's time, your bio
-          and avatar ... and the ability to edit your profile Also, you should
-          be able to see how many friends how many blocked contacts & users
-          blocking you
           <ProfileModal />
         </CardContent>
       </Card>
