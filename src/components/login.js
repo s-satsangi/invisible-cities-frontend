@@ -21,6 +21,7 @@ export default function Login(props) {
       body: JSON.stringify({
         user: {
           username: stateUsername,
+          password: "pw",
         },
       }),
     })
@@ -29,15 +30,19 @@ export default function Login(props) {
         return resp.json();
       })
       .then((user) => {
-        props.setLogin(true);
-        localStorage.setItem("login", true);
+        props.setLogin("true");
+        localStorage.setItem("login", "true");
         console.log(
           "If it works, it works, buddy. + login: " +
-            localStorage.getItem("login")
+            localStorage.getItem("login") +
+            " username: " +
+            user.user
         );
-        localStorage.setItem("username", user.user[0].username);
-        props.setUsername(localStorage.getItem("username"));
-        localStorage.setItem("userId", user.user[0].id);
+        console.log(user);
+        // localStorage.setItem("username", user.user);
+        props.setUsername(user.user);
+        // props.setUsername(localStorage.getItem("username"));
+        localStorage.setItem("userId", user.uid);
         props.setUserId(localStorage.getItem("userId"));
         console.log("I thought it all set!");
         <Redirect to="/citizen" />;

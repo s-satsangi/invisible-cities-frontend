@@ -6,17 +6,36 @@ import UserForm from "./components/UserForm";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
 function App() {
-  const [userId, setUserId] = useState("");
-  const [username, setUsername] = useState("");
-  const [login, setLogin] = useState(false);
-  // const [newUser, setNewUser] = useState(false);
+  const [userId, setUserId] = useState(localStorage.getItem("userId"));
+  const [username, setUsername] = useState(localStorage.getItem("username"));
+  const [login, setLogin] = useState(localStorage.getItem("login"));
+  const [userLookup, setUserLookup] = useState(
+    localStorage.getItem("userLookup")
+  );
+  const [friendsFetch, setFriendsFetch] = useState([]);
+  const [friends, setFriends] = useState([]);
+  const [requestingYou, setRequestingYou] = useState([]);
+  const [youRequested, setYouRequested] = useState([]);
 
   useEffect(() => {
     localStorage.setItem("username", username);
     localStorage.setItem("userId", userId);
     localStorage.setItem("login", login);
-    // localStorage.setItem("newUser", newUser);
-  }, [username, userId, login]);
+    localStorage.setItem("userLookup", userLookup);
+    localStorage.setItem("requestingYou", requestingYou);
+    localStorage.setItem("youRequested", youRequested);
+    localStorage.setItem("friends", friends);
+    localStorage.setItem("friendsFetch", friendsFetch);
+  }, [
+    username,
+    userId,
+    login,
+    userLookup,
+    requestingYou,
+    youRequested,
+    friends,
+    friendsFetch,
+  ]);
 
   return (
     <div className="App">
@@ -28,28 +47,19 @@ function App() {
           <h3>Home</h3>
         </Link>
 
-        {/* if login is false, prompt for new user or login */}
-        {/* if login is true, render the user container */}
-        {/* */}
-        {/* {localStorage.getItem("login") ? ( */}
         <>
-          <Link to="/login" hidden={login}>
+          <Link to="/login" hidden={login === "true"}>
             <h3> Log In Here </h3>
           </Link>
-          <Link to="/signup" hidden={login}>
+          <Link to="/signup" hidden={login === "true"}>
             <h3> New User? Sign Up Here </h3>
           </Link>
         </>
-        {/* ) : ( */}
-        <Link to="/citizen" hidden={!login}>
-          <h3>
-            Welcome to Invisible Cities, {localStorage.getItem("username")}.
-            Click here to enter.
-          </h3>
-        </Link>
-        {/* )} */}
 
-        {/* the render div.  what the user clicks, they'll see in this div */}
+        <Link to="/citizen" hidden={login === "false"}>
+          <h3>Welcome to Invisible Cities, {username}. Click here to enter.</h3>
+        </Link>
+
         <div>
           {/* no options selected, render nothing */}
           {/* <Route path="/" render={<></>} /> */}
@@ -71,7 +81,15 @@ function App() {
           <Route
             path="/citizen"
             exact={true}
-            render={() => <UserContainer />}
+            render={() => (
+              <UserContainer
+                setUserLookup={setUserLookup}
+                setFriendsFetch={setFriendsFetch}
+                setFriends={setFriends}
+                setRequestingYou={setRequestingYou}
+                setYouRequested={setYouRequested}
+              />
+            )}
           />
         </div>
       </Router>
