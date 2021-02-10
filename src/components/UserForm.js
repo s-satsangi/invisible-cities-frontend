@@ -12,6 +12,9 @@ export default class UserForm extends Component {
     const data = {
       user: {
         username: this.state.username,
+        password: "pw",
+        bio:
+          "This is the automagically generated bio for my profile!  I should personalize this!",
       },
     };
     fetch("http://localhost:3000/users", {

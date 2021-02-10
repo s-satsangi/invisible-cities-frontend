@@ -40,15 +40,15 @@ export default function SimpleModal() {
   const [numBlocked, setNumBlocked] = useState(-1);
 
   const getNumberFollows = () => {
-    const data = {
-      user: {
-        username: localStorage.getItem("username"),
-      },
-    };
+    // const data = {
+    //   user: {
+    //     username: localStorage.getItem("username"),
+    //   },
+    // };
     fetch("http://localhost:3000/numfriends", {
-      method: "POST",
+      method: "GET",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      // body: JSON.stringify(data),
       credentials: "include",
     })
       .then((res) => res.json())
