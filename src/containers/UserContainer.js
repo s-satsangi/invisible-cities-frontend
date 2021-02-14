@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import YourProfile from "../components/YourProfile";
 import YourFriends from "../components/YourFriends";
 import YourConvos from "../components/YourConvos";
+// import YourGroups from "../components/YourGroups";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
 export default function UserContainer(props) {
@@ -40,10 +41,59 @@ export default function UserContainer(props) {
       })
       .catch((err) => alert(`${err.message}`));
   };
+
+  const getGroups = () => {
+    fetch("http://localhost:3000/groups", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        // debugger;
+        props.setGroups(JSON.stringify(json.user_groups));
+        // localStorage.setItem("friends", json.followers);
+        // debugger;
+        if (json.status) throw json;
+      })
+      .catch((err) => alert(`${err.message}`));
+  };
+
+  //post to endpoint to get messages?
+  const getMessages = () => {
+    fetch("http://localhost:3000/message", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        // debugger;
+        props.setMessages(JSON.stringify(json.messages));
+        // localStorage.setItem("friends", json.followers);
+        // debugger;
+        if (json.status) throw json;
+      })
+      .catch((err) => alert(`${err.message}`));
+  };
+
   useEffect(() => {
     // getUsers();
     // debugger;
     getFriends();
+    getGroups();
+    getMessages();
+
+    const interval = setInterval(() => {
+      getFriends();
+      getGroups();
+      getMessages();
+    }, 10000);
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   // --------------------------------------------
@@ -57,6 +107,7 @@ export default function UserContainer(props) {
         <Link to="/profile">Your Profile</Link>
         <Link to="/friends">Your Friends Stuff</Link>
         <Link to="/convos">Your Convos</Link>
+        {/* <Link to="/groups">Your Groups</Link> */}
         <div>
           <Route path="/profile" render={() => <YourProfile />} />
           <Route
@@ -71,19 +122,9 @@ export default function UserContainer(props) {
             )}
           />
           <Route path="/convos" render={() => <YourConvos />} />
+          {/* <Route path="/groups" render={() => <YourGroups />} /> */}
         </div>
       </Router>
-
-      {/* <YourProfile /> */}
-
-      {/* <YourFriends
-        setUserLookup={props.setUserLookup}
-        setFriends={props.setFriends}
-        setYouRequested={props.setYouRequested}
-        setRequestingYou={props.setRequestingYou}
-      /> */}
-
-      {/* <YourConvos /> */}
     </div>
   );
 }

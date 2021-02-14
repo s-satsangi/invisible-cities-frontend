@@ -45,55 +45,6 @@ export default function FriendModal(props) {
   const [youRequested, setYouRequested] = useState(
     localStorage.getItem("youRequested")
   );
-  // const getUsers = () => {
-  //   fetch("http://localhost:3000/users", {
-  //     method: "GET",
-  //     headers: { "Content-Type": "application/json" },
-  //     credentials: "include",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((json) => {
-  //       debugger;
-  //       console.log("THIS IS THE GET USERS FETCH IN THE FRIEND MODAL" + json);
-  //       props.setUserLookup(json);
-  //       // setUsers(json.followers);
-  //       // localStorage.setItem("friends", json.followers);
-  //       // debugger;
-  //       if (json.status) throw json;
-  //     })
-  //     .catch((err) => alert(`${err.message}`));
-  // };
-
-  // const getFriends = () => {
-  //   const data = {
-  //     user: {
-  //       username: localStorage.getItem("username"),
-  //     },
-  //   };
-
-  //   fetch("http://localhost:3000/friends", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(data),
-  //     credentials: "include",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((json) => {
-  //       console.log(json);
-  //       props.setFriends(json.followers);
-  //       // localStorage.setItem("friends", json.followers);
-  //       // debugger;
-  //       props.setRequestingYou(json.requests);
-  //       props.setYouRequested(json.sent_requests);
-  //       if (json.status) throw json;
-  //     })
-  //     .catch((err) => alert(`${err.message}`));
-  // };
-  // useEffect(() => {
-  //   // getUsers();
-  //   // debugger;
-  //   getFriends();
-  // }, []);
 
   const handleOpen = () => {
     setOpen(true);
@@ -131,7 +82,7 @@ export default function FriendModal(props) {
           />
         ))}
       </p>
-      <FriendModal />
+      {/* <FriendModal /> */}
     </div>
   );
 
