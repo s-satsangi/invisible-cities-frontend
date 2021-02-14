@@ -4,6 +4,7 @@ import { Container, TextField } from "@material-ui/core";
 export default class UserForm extends Component {
   state = {
     username: "",
+    password: "",
     submit: false,
   };
 
@@ -12,7 +13,7 @@ export default class UserForm extends Component {
     const data = {
       user: {
         username: this.state.username,
-        password: "pw",
+        password: this.state.password,
         bio:
           "This is the automagically generated bio for my profile!  I should personalize this!",
       },
@@ -50,6 +51,13 @@ export default class UserForm extends Component {
             onChange={(event) => this.inputHandler(event, "username")}
           />
           <br />
+          <TextField
+            required
+            label="Password"
+            type="password"
+            className="userform"
+            onChange={(event) => this.inputHandler(event, "password")}
+          />
           <br />
           <br />
           {/* {this.state.submit ? ( */}

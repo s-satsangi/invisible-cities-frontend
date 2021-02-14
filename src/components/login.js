@@ -5,6 +5,7 @@ import { BrowserRouter as Redirect } from "react-router-dom";
 
 export default function Login(props) {
   const [stateUsername, setStateUsername] = useState("");
+  const [statePassword, setStatePassword] = useState("");
   const [error, setError] = useState("");
 
   const setFetch = (event, props) => {
@@ -21,7 +22,7 @@ export default function Login(props) {
       body: JSON.stringify({
         user: {
           username: stateUsername,
-          password: "pw",
+          password: statePassword,
         },
       }),
     })
@@ -71,6 +72,13 @@ export default function Login(props) {
           onChange={(e) => setStateUsername(e.target.value)}
         />
         &nbsp; &nbsp;
+        <TextField
+          type="text"
+          placeholder="password"
+          value={statePassword}
+          type="password"
+          onChange={(e) => setStatePassword(e.target.value)}
+        />
         <TextField type="submit" />
       </form>
       <br />
