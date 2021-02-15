@@ -37,7 +37,6 @@ export default function UserContainer(props) {
         // debugger;
         props.setRequestingYou(JSON.stringify(json.requests));
         props.setYouRequested(JSON.stringify(json.sent_requests));
-        if (json.status) throw json;
       })
       .catch((err) => alert(`${err.message}`));
   };
@@ -55,7 +54,6 @@ export default function UserContainer(props) {
         props.setGroups(JSON.stringify(json.user_groups));
         // localStorage.setItem("friends", json.followers);
         // debugger;
-        if (json.status) throw json;
       })
       .catch((err) => alert(`${err.message}`));
   };
@@ -74,7 +72,6 @@ export default function UserContainer(props) {
         props.setMessages(JSON.stringify(json.messages));
         // localStorage.setItem("friends", json.followers);
         // debugger;
-        if (json.status) throw json;
       })
       .catch((err) => alert(`${err.message}`));
   };
@@ -90,7 +87,7 @@ export default function UserContainer(props) {
       getFriends();
       getGroups();
       getMessages();
-    }, 10000);
+    }, 30000);
     return () => {
       clearInterval(interval);
     };
@@ -122,7 +119,6 @@ export default function UserContainer(props) {
             )}
           />
           <Route path="/convos" render={() => <YourConvos />} />
-          {/* <Route path="/groups" render={() => <YourGroups />} /> */}
         </div>
       </Router>
     </div>

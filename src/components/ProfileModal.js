@@ -2,13 +2,9 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
 function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
+  const top = 50;
+  const left = 50;
 
   return {
     top: `${top}%`,
@@ -20,35 +16,39 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
+    height: 300,
     width: 400,
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    overflow: "scroll",
   },
 }));
 
-//fetch number friends
-//fetch number blocked
-
-export default function SimpleModal() {
+export default function ProfileModal() {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
+
   const [numFriends, setNumFriends] = useState(-1);
   const [numBlocked, setNumBlocked] = useState(-1);
 
+  const delUser = () => {
+    fetch("http://localhost:3000/deluser", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    })
+      .then((res) => res.json)
+      .then((json) => console.log(json));
+  };
+
   const getNumberFollows = () => {
-    // const data = {
-    //   user: {
-    //     username: localStorage.getItem("username"),
-    //   },
-    // };
     fetch("http://localhost:3000/numfriends", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-      // body: JSON.stringify(data),
       credentials: "include",
     })
       .then((res) => res.json())
@@ -88,15 +88,19 @@ export default function SimpleModal() {
         <em>
           You have been blocked by {localStorage.getItem("numBlocked")} users
         </em>
+        <br></br>
+        <button className="ui mini green button" onClick={() => delUser()}>
+          1-click delete your account
+        </button>
       </p>
-      <SimpleModal />
+      {/* <ProfileModal /> */}
     </div>
   );
 
   return (
     <div>
       <button type="button" onClick={handleOpen}>
-        Open Modal
+        Open Profile
       </button>
       <Modal
         open={open}

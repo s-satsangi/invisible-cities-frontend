@@ -47,7 +47,6 @@ function App() {
     fetch("http://localhost:3000/logout", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-      // body: JSON.stringify({ user: { username: null } }),
       credentials: "include",
     })
       .then((res) => res.json())
@@ -72,26 +71,16 @@ function App() {
   return (
     <div className="App">
       <Router>
-        {/* link area is one of two conditions */}
-
-        {/* links that should always be available go here */}
         <Link to="/">
           <h3>Home</h3>
         </Link>
 
         {login === "false" && (
           <>
-            {/* <Link to="/login" hidden="true"> */}
-            <Link
-              to="/login"
-              // hidden={localStorage.getItem("login") === "true"}
-            >
+            <Link to="/login">
               <h3> Log In Here </h3>
             </Link>
-            <Link
-              to="/signup"
-              // hidden={localStorage.getItem("login") === "true"}
-            >
+            <Link to="/signup">
               <h3> New User? Sign Up Here </h3>
             </Link>
           </>
@@ -99,28 +88,18 @@ function App() {
 
         {login === "true" && (
           <>
-            <Link
-              to="/citizen"
-              // hidden={localStorage.getItem("login") !== "true"}
-            >
+            <Link to="/citizen">
               <h3>
                 Welcome to Invisible Cities, {username}. Click here to enter.
               </h3>
             </Link>
-            <Link
-              to="/logout"
-              // hidden={localStorage.getItem("login") !== "true"}
-            >
+            <Link to="/logout">
               <h3>Logout here</h3>
             </Link>
           </>
         )}
 
         <div>
-          {/* no options selected, render nothing */}
-          {/* <Route path="/" render={<></>} /> */}
-
-          {/* the components that render when login is false */}
           <Route
             path="/login"
             render={() => (
@@ -133,7 +112,6 @@ function App() {
           />
           <Route path="/signup" render={() => <UserForm />} />
 
-          {/* User has logged in and clicked enter.  Render the User Container here */}
           <Route
             path="/citizen"
             exact={true}

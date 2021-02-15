@@ -27,7 +27,6 @@ export default class UserForm extends Component {
       .then((res) => res.json())
       .then((json) => {
         if (json.status) throw json;
-        alert("change to redirect later");
       })
       .catch((err) => alert(`${err.message}`));
     event.target.reset();
