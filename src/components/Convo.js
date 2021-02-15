@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { TextField } from "@material-ui/core";
 import ChatUI from "./ChatUI";
+import Message from "./Message";
 
 export default function Convo(props) {
   // state vars
@@ -11,7 +12,9 @@ export default function Convo(props) {
   useEffect(() => {
     localStorage.setItem(`hmm${props.group_id}`, JSON.stringify(props.members));
     displayMessages(props);
-  }, [props.messages]);
+    makeMessages(messageObject);
+    // debugger;
+  }, [props.messages, props.messages[0][2], messageObject]);
 
   const displayMessages = (props) => {
     // let messages = JSON.parse(localStorage.getItem("messages"));
@@ -70,13 +73,26 @@ export default function Convo(props) {
     return ret_arr.join(", ");
   };
 
+  const makeMessages = (messageObject) => {
+    if (messageObject[2]) {
+      let author = "";
+      return messageObject[2].map((msg) => {
+        author = props.members.filter((mem) => mem.id === msg.creator_id);
+        return <Message key={msg.id} content={msg} author={author} />;
+      });
+    } else {
+      return null;
+    }
+  };
+
   return (
     <>
       <div>Squee</div>
-      {messageObject[2]
-        ? messageObject[2].map((msg) => msg.message_body)
-        : null}
-      <ChatUI messageObject={messageObject} />
+      {/* {messageObject[2]
+        ? messageObject[2].map((msg) => <Message key={msg.id} content={msg} />)
+        : null} */}
+      {makeMessages(messageObject)}
+      {/* <ChatUI messageObject={messageObject} /> */}
       <form onSubmit={(event) => postMessage(event, props)}>
         <TextField
           multiline

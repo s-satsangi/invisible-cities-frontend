@@ -89,7 +89,7 @@ export default function FriendModal(props) {
   return (
     <div>
       <button type="button" onClick={handleOpen}>
-        Open Modal
+        Open Friends
       </button>
       <Modal
         open={open}

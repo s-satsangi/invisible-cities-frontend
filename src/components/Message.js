@@ -12,10 +12,15 @@ import React from "react";
 
 // -------------------------------------------
 export default function Message(props) {
-  console.log("I am a message component and my props is " + props);
+  console.log("I am a message component and my props is " + props.content);
+  // debugger;
   return (
     <div>
-      <div>{props.content}</div>
+      <div>
+        On {props.content.created_at.split("T")[0]} at
+        {props.content.created_at.split("T")[1].split(".")[0]},{" "}
+        {props.author[0].username} said: {props.content.message_body}
+      </div>
     </div>
   );
 }

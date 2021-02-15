@@ -40,9 +40,9 @@ export default function Login(props) {
             user.user
         );
         console.log(user);
-        // localStorage.setItem("username", user.user);
+
         props.setUsername(user.user);
-        // props.setUsername(localStorage.getItem("username"));
+
         localStorage.setItem("userId", user.uid);
         props.setUserId(localStorage.getItem("userId"));
         console.log("I thought it all set!");
