@@ -106,7 +106,7 @@ export default function MultipleSelect(props) {
       },
       credentials: "include",
       body: JSON.stringify({
-        user_group: bodyIds,
+        user_group: [bodyIds, props.group_id],
       }),
     })
       .then((resp) => {
@@ -118,9 +118,79 @@ export default function MultipleSelect(props) {
       });
   };
 
+  const addGroup = (event) => {
+    event.preventDefault();
+    console.log("add" + personName);
+
+    console.log("ADDDDDDDDD" + personName);
+    // debugger;
+    let bodyIds = personName.map((name) => name[0]);
+
+    // debugger;
+    fetch("http://localhost:3000/addtogroup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        user_group: [bodyIds, props.group_id],
+        // group_id: props.group_id,
+      }),
+    })
+      .then((resp) => {
+        if (resp.status === 401) throw resp;
+        return resp.json();
+      })
+      .then((resp) => {
+        console.log("New group server response: " + resp);
+      });
+  };
+
+  const bootGroup = (event) => {
+    event.preventDefault();
+    console.log("boot" + personName);
+
+    console.log("BOOOOOOOOT" + personName);
+    // debugger;
+    let bodyIds = personName.map((name) => name[0]);
+
+    // debugger;
+    fetch("http://localhost:3000/bootfromgroup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        user_group: [bodyIds, props.group_id],
+        // group_id: props.group_id,
+      }),
+    })
+      .then((resp) => {
+        if (resp.status === 401) throw resp;
+        return resp.json();
+      })
+      .then((resp) => {
+        console.log("Boot group server response: " + resp);
+      });
+  };
+
   return (
     <div>
-      <form onSubmit={(event) => newGroup(event, props)}>
+      <form
+        onSubmit={
+          props.grouptype === "new"
+            ? (event) => newGroup(event, props)
+            : props.grouptype === "add"
+            ? (event) => addGroup(event, props)
+            : (event) => bootGroup(event, props)
+        }
+      >
         <FormControl className={classes.formControl}>
           <InputLabel id="demo-mutiple-name-label">Name</InputLabel>
           <Select

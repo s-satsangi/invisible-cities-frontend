@@ -36,7 +36,7 @@ export default function YourConvos() {
 
           <Typography variant="h5" component="h2">
             Create a chat group from your friends:
-            <CreateGroup names={names} />
+            <CreateGroup names={names} grouptype={"new"} group_id={0} />
           </Typography>
         </CardContent>
       </Card>

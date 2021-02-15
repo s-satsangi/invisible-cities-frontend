@@ -30,11 +30,8 @@ export default function UserContainer(props) {
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
-        // debugger;
         props.setFriendsFetch(JSON.stringify(json));
         props.setFriends(JSON.stringify(json.followers));
-        // localStorage.setItem("friends", json.followers);
-        // debugger;
         props.setRequestingYou(JSON.stringify(json.requests));
         props.setYouRequested(JSON.stringify(json.sent_requests));
       })
@@ -50,10 +47,7 @@ export default function UserContainer(props) {
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
-        // debugger;
         props.setGroups(JSON.stringify(json.user_groups));
-        // localStorage.setItem("friends", json.followers);
-        // debugger;
       })
       .catch((err) => alert(`${err.message}`));
   };
@@ -68,10 +62,7 @@ export default function UserContainer(props) {
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
-        // debugger;
         props.setMessages(JSON.stringify(json.messages));
-        // localStorage.setItem("friends", json.followers);
-        // debugger;
       })
       .catch((err) => alert(`${err.message}`));
   };
@@ -87,7 +78,7 @@ export default function UserContainer(props) {
       getFriends();
       getGroups();
       getMessages();
-    }, 30000);
+    }, 15000);
     return () => {
       clearInterval(interval);
     };
@@ -99,7 +90,7 @@ export default function UserContainer(props) {
 
   return (
     <div>
-      <h1>Ayyy User Container Let's Go!</h1>
+      {/* <h1>Ayyy User Container Let's Go!</h1> */}
       <Router>
         <Link to="/profile">Your Profile</Link>
         <Link to="/friends">Your Friends Stuff</Link>

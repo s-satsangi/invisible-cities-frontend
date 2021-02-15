@@ -87,10 +87,6 @@ export default function Convo(props) {
 
   return (
     <>
-      <div>Squee</div>
-      {/* {messageObject[2]
-        ? messageObject[2].map((msg) => <Message key={msg.id} content={msg} />)
-        : null} */}
       {makeMessages(messageObject)}
       {/* <ChatUI messageObject={messageObject} /> */}
       <form onSubmit={(event) => postMessage(event, props)}>
