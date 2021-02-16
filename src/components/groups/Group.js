@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Convo from "./Convo";
+import Convo from "../messages/Convo";
 import CreateGroup from "./CreateGroup";
 
 export default function Group(props) {
@@ -52,8 +52,10 @@ export default function Group(props) {
 
   useEffect(() => {
     setMessage(JSON.parse(localStorage.getItem("messages")));
+    setNames(props.members.map((member) => [member.id, member.username]));
     const interval = setInterval(() => {
       setMessage(JSON.parse(localStorage.getItem("messages")));
+      setNames(props.members.map((member) => [member.id, member.username]));
     }, 5000);
     return () => {
       clearInterval(interval);

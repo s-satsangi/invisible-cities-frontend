@@ -91,7 +91,7 @@ export default function Convo(props) {
 
   return (
     <>
-      <button onClick={debuggo}>DEBUG</button>
+      {/* <button onClick={debuggo}>DEBUG</button> */}
       {makeMessages(messageObject)}
       {/* <ChatUI messageObject={messageObject} /> */}
       <form onSubmit={(event) => postMessage(event, props)}>

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import YourProfile from "../components/YourProfile";
-import YourFriends from "../components/YourFriends";
-import YourConvos from "../components/YourConvos";
+import YourProfile from "../components/user/YourProfile";
+import YourFriends from "../components/friends/YourFriends";
+import YourConvos from "../components/messages/YourConvos";
 // import YourGroups from "../components/YourGroups";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, TextField } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import SearchResults from "./SearchResults";
+// import SearchResults from "./SearchResults";
 import Friend from "./Friend";
 
 const SearchFriends = () => {

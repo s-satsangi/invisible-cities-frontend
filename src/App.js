@@ -1,8 +1,8 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import Login from "./components/login";
+import Login from "./components/user/login";
 import UserContainer from "./containers/UserContainer";
-import UserForm from "./components/UserForm";
+import UserForm from "./components/user/UserForm";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
 function App() {
