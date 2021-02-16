@@ -45,7 +45,7 @@ export default function FriendModal(props) {
   const [youRequested, setYouRequested] = useState(
     localStorage.getItem("youRequested")
   );
-
+  const [blocked, setBlocked] = useState(localStorage.getItem("blocked"));
   const handleOpen = () => {
     setOpen(true);
   };
@@ -80,6 +80,14 @@ export default function FriendModal(props) {
             friend={yourRequest}
             status={"youRequested"}
           />
+        ))}
+      </p>
+      <p id="simple-modal-description">
+        People you've blocked:
+        {JSON.parse(blocked).map((blockee) => (
+          <>
+            <Friend key={blockee.id} friend={blockee} status={"blocked"} />
+          </>
         ))}
       </p>
       {/* <FriendModal /> */}

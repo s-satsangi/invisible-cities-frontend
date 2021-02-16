@@ -34,6 +34,7 @@ export default function UserContainer(props) {
         props.setFriends(JSON.stringify(json.followers));
         props.setRequestingYou(JSON.stringify(json.requests));
         props.setYouRequested(JSON.stringify(json.sent_requests));
+        props.setBlocked(JSON.stringify(json.blocked));
       })
       .catch((err) => alert(`${err.message}`));
   };

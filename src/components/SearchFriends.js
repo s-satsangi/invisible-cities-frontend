@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, TextField } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import SearchResults from "./SearchResults";
 import Friend from "./Friend";
 
@@ -21,6 +22,7 @@ const SearchFriends = () => {
   const [requestingYouIds, setRequestingYouIds] = useState(
     JSON.parse(localStorage.getItem("requestingYou")).map((friend) => friend.id)
   );
+  const [error, setError] = useState("");
 
   const performSearch = (event) => {
     event.preventDefault();
@@ -40,6 +42,11 @@ const SearchFriends = () => {
         // debugger;
         console.log(json);
         // debugger;
+        if (json.error) {
+          setError(json.error);
+        } else {
+          setError("");
+        }
         if (json.user) {
           if (friendIds.includes(json.user.id)) {
             setResultsStatus("friend");
@@ -78,6 +85,13 @@ const SearchFriends = () => {
         <TextField type="submit" />
       </form>
       <div>Results Begin</div>
+      {error ? (
+        <Alert severity="error">
+          {" "}
+          Sorry, something went wrong: <br />
+          {error}
+        </Alert>
+      ) : null}
       <Friend friend={resultsFriend} status={resultsStatus} />
       <div>Results UnBegin</div>
     </Container>

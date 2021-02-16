@@ -51,6 +51,17 @@ export default function Friend(props) {
       .then(console.log);
   };
 
+  const unblock = () => {
+    fetch("http://localhost:3000/unblock", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then(console.log);
+  };
+
   const friendOptions = () => {
     if (props.status === "friend") {
       return (
@@ -80,7 +91,16 @@ export default function Friend(props) {
           </button>{" "}
         </>
       );
-    }
+    } else if (props.status === "blocked")
+      return (
+        <>
+          To let {props.friend.username} add you to chat groups,{" "}
+          <button className="ui mini green button" onClick={() => unblock()}>
+            UNBLOCK
+          </button>{" "}
+          them here
+        </>
+      );
   };
 
   return (
