@@ -8,6 +8,11 @@ export default function Friend(props) {
   };
 
   const reply_pos = () => {
+    if (props.setSearchname) {
+      props.setSearchname("");
+      props.setResultsStatus("");
+      props.setResultsFriend([]);
+    }
     fetch("http://localhost:3000/reply_pos", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -19,6 +24,11 @@ export default function Friend(props) {
   };
 
   const reply_neg = () => {
+    if (props.setSearchname) {
+      props.setSearchname("");
+      props.setResultsStatus("");
+      props.setResultsFriend([]);
+    }
     fetch("http://localhost:3000/reply_neg", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -30,6 +40,11 @@ export default function Friend(props) {
   };
 
   const add_friend = () => {
+    if (props.setSearchname) {
+      props.setSearchname("");
+      props.setResultsStatus("");
+      props.setResultsFriend([]);
+    }
     fetch("http://localhost:3000/add_friend", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -41,6 +56,11 @@ export default function Friend(props) {
   };
 
   const block = () => {
+    if (props.setSearchname) {
+      props.setSearchname("");
+      props.setResultsStatus("");
+      props.setResultsFriend([]);
+    }
     fetch("http://localhost:3000/block", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -52,6 +72,11 @@ export default function Friend(props) {
   };
 
   const unblock = () => {
+    if (props.setSearchname) {
+      props.setSearchname("");
+      props.setResultsStatus("");
+      props.setResultsFriend([]);
+    }
     fetch("http://localhost:3000/unblock", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

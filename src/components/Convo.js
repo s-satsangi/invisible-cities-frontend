@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { TextField } from "@material-ui/core";
-import ChatUI from "./ChatUI";
 import Message from "./Message";
 
 export default function Convo(props) {
@@ -8,24 +7,24 @@ export default function Convo(props) {
   const [parentId, setParentId] = useState(0);
   const [messageObject, setMessageObject] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [message, setMessage] = useState(
+    JSON.parse(localStorage.getItem("messages"))
+  );
 
   useEffect(() => {
-    localStorage.setItem(`hmm${props.group_id}`, JSON.stringify(props.members));
     displayMessages(props);
-    makeMessages(messageObject);
-    // debugger;
-  }, [props.messages, props.messages[0][2], messageObject]);
+  }, [props]);
 
   const displayMessages = (props) => {
-    // let messages = JSON.parse(localStorage.getItem("messages"));
     //find relevant message object
+
     for (let i = 0; i < props.messages.length; i++) {
       // debugger;
 
       if (props.messages[i][0] === props.group_id) {
         console.log(
           "Ayoooo I found dat grooup! It's " +
-            props.messages[i][0] +
+            message[i][0] +
             " in array and: " +
             props.group_id +
             " in da props!"
@@ -66,6 +65,7 @@ export default function Convo(props) {
       })
       .then(displayMessages(props))
       .catch((err) => alert(`${err.message}`));
+    setNewMessage("");
   };
 
   const returnMembers = () => {
@@ -85,8 +85,13 @@ export default function Convo(props) {
     }
   };
 
+  const debuggo = () => {
+    debugger;
+  };
+
   return (
     <>
+      <button onClick={debuggo}>DEBUG</button>
       {makeMessages(messageObject)}
       {/* <ChatUI messageObject={messageObject} /> */}
       <form onSubmit={(event) => postMessage(event, props)}>

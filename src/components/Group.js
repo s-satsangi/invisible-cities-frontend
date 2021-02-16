@@ -12,6 +12,9 @@ export default function Group(props) {
       .filter((friend) => !names.map((name) => name[0]).includes(friend.id))
       .map((output) => [output.id, output.username])
   );
+  const [message, setMessage] = useState(
+    JSON.parse(localStorage.getItem("messages"))
+  );
 
   const renderMembers = () => {
     let memberString = props.members.map((member) => member.username);
@@ -46,6 +49,16 @@ export default function Group(props) {
       });
     return;
   };
+
+  useEffect(() => {
+    setMessage(JSON.parse(localStorage.getItem("messages")));
+    const interval = setInterval(() => {
+      setMessage(JSON.parse(localStorage.getItem("messages")));
+    }, 5000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   // const debuggo = () => {
   //   debugger;

@@ -6,7 +6,7 @@ import Friend from "./Friend";
 
 const SearchFriends = () => {
   const [searchname, setSearchname] = useState([]);
-
+  // const [newSearch, setNewSearch] = useState("");
   const [resultsAvatar, setResultsAvatar] = useState([]);
   const [resultsBio, setResultsBio] = useState([]);
   const [resultsId, setResultsId] = useState([]);
@@ -22,7 +22,51 @@ const SearchFriends = () => {
   const [requestingYouIds, setRequestingYouIds] = useState(
     JSON.parse(localStorage.getItem("requestingYou")).map((friend) => friend.id)
   );
+  const [blockedIds, setBlockedIds] = useState(
+    JSON.parse(localStorage.getItem("blocked")).map((friend) => friend.id)
+  );
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    setFriendIds(
+      JSON.parse(localStorage.getItem("friends")).map((friend) => friend.id)
+    );
+    setYouRequestedIds(
+      JSON.parse(localStorage.getItem("youRequested")).map(
+        (friend) => friend.id
+      )
+    );
+    setRequestingYouIds(
+      JSON.parse(localStorage.getItem("requestingYou")).map(
+        (friend) => friend.id
+      )
+    );
+    setBlockedIds(
+      JSON.parse(localStorage.getItem("blocked")).map((friend) => friend.id)
+    );
+
+    const interval = setInterval(() => {
+      setFriendIds(
+        JSON.parse(localStorage.getItem("friends")).map((friend) => friend.id)
+      );
+      setYouRequestedIds(
+        JSON.parse(localStorage.getItem("youRequested")).map(
+          (friend) => friend.id
+        )
+      );
+      setRequestingYouIds(
+        JSON.parse(localStorage.getItem("requestingYou")).map(
+          (friend) => friend.id
+        )
+      );
+      setBlockedIds(
+        JSON.parse(localStorage.getItem("blocked")).map((friend) => friend.id)
+      );
+    }, 5000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   const performSearch = (event) => {
     event.preventDefault();
@@ -40,6 +84,7 @@ const SearchFriends = () => {
       .then((res) => res.json())
       .then((json) => {
         // debugger;
+        setSearchname("");
         console.log(json);
         // debugger;
         if (json.error) {
@@ -78,6 +123,7 @@ const SearchFriends = () => {
       <form onSubmit={performSearch}>
         <TextField
           label="Username"
+          value={searchname}
           className="searchform"
           onChange={(event) => setSearchname(event.target.value)}
         />
@@ -92,7 +138,13 @@ const SearchFriends = () => {
           {error}
         </Alert>
       ) : null}
-      <Friend friend={resultsFriend} status={resultsStatus} />
+      <Friend
+        friend={resultsFriend}
+        status={resultsStatus}
+        setResultsStatus={setResultsStatus}
+        setResultsFriend={setResultsFriend}
+        setSearchname={setSearchname}
+      />
       <div>Results UnBegin</div>
     </Container>
   );
