@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
@@ -40,19 +40,6 @@ const MenuProps = {
   },
 };
 
-// const names = [
-//   "Oliver Hansen",
-//   "Van Henry",
-//   "April Tucker",
-//   "Ralph Hubbard",
-//   "Omar Alexander",
-//   "Carlos Abbott",
-//   "Miriam Wagner",
-//   "Bradley Wilkerson",
-//   "Virginia Andrews",
-//   "Kelly Snyder",
-// ];
-
 export default function MultipleSelect(props) {
   const classes = useStyles();
   const theme = useTheme();
@@ -62,7 +49,19 @@ export default function MultipleSelect(props) {
   );
   const [names, setNames] = React.useState(props.names);
   const userId = JSON.parse(localStorage.getItem("userId"));
-  // JSON.parse(localStorage.getItem("friendsFetch")).followers[0].username
+
+  // useEffect(() => {
+  //   setNames(props.names);
+
+  //   const interval = setInterval(() => {
+  //     setNames(props.names);
+  //   }, 5000);
+
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // });
+
   function getStyles(name, personName, theme) {
     return {
       fontWeight:
@@ -96,6 +95,7 @@ export default function MultipleSelect(props) {
     // debugger;
     let bodyIds = personName.map((name) => name[0]);
     bodyIds.push(userId);
+    setPersonName([]);
     // debugger;
     fetch("http://localhost:3000/groups", {
       method: "POST",
@@ -106,7 +106,7 @@ export default function MultipleSelect(props) {
       },
       credentials: "include",
       body: JSON.stringify({
-        user_group: bodyIds,
+        user_group: [bodyIds, props.group_id],
       }),
     })
       .then((resp) => {
@@ -118,9 +118,79 @@ export default function MultipleSelect(props) {
       });
   };
 
+  const addGroup = (event) => {
+    event.preventDefault();
+    console.log("add" + personName);
+
+    console.log("ADDDDDDDDD" + personName);
+    // debugger;
+    let bodyIds = personName.map((name) => name[0]);
+    setPersonName([]);
+    // debugger;
+    fetch("http://localhost:3000/addtogroup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        user_group: [bodyIds, props.group_id],
+        // group_id: props.group_id,
+      }),
+    })
+      .then((resp) => {
+        if (resp.status === 401) throw resp;
+        return resp.json();
+      })
+      .then((resp) => {
+        console.log("New group server response: " + resp);
+      });
+  };
+
+  const bootGroup = (event) => {
+    event.preventDefault();
+    console.log("boot" + personName);
+
+    console.log("BOOOOOOOOT" + personName);
+    // debugger;
+    let bodyIds = personName.map((name) => name[0]);
+    setPersonName([]);
+    // debugger;
+    fetch("http://localhost:3000/bootfromgroup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        user_group: [bodyIds, props.group_id],
+        // group_id: props.group_id,
+      }),
+    })
+      .then((resp) => {
+        if (resp.status === 401) throw resp;
+        return resp.json();
+      })
+      .then((resp) => {
+        console.log("Boot group server response: " + resp);
+      });
+  };
+
   return (
     <div>
-      <form onSubmit={(event) => newGroup(event, props)}>
+      <form
+        onSubmit={
+          props.grouptype === "new"
+            ? (event) => newGroup(event, props)
+            : props.grouptype === "add"
+            ? (event) => addGroup(event, props)
+            : (event) => bootGroup(event, props)
+        }
+      >
         <FormControl className={classes.formControl}>
           <InputLabel id="demo-mutiple-name-label">Name</InputLabel>
           <Select

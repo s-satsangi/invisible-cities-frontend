@@ -1,5 +1,5 @@
 import React from "react";
-
+import Chip from "@material-ui/core/Chip";
 // -------------------------------------------
 // I guess this is what I'm using for
 // the message object
@@ -17,9 +17,12 @@ export default function Message(props) {
   return (
     <div>
       <div>
-        On {props.content.created_at.split("T")[0]} at
-        {props.content.created_at.split("T")[1].split(".")[0]},{" "}
-        {props.author[0].username} said: {props.content.message_body}
+        <Chip
+          label={`On ${props.content.created_at.split("T")[0]} at
+        ${props.content.created_at.split("T")[1].split(".")[0]}`}
+        />
+        <Chip label={`${props.author[0].username}:`} />{" "}
+        <Chip label={`${props.content.message_body}`} />
       </div>
     </div>
   );

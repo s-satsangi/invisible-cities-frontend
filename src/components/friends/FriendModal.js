@@ -38,13 +38,34 @@ export default function FriendModal(props) {
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
 
-  const [friends, setFriends] = useState(localStorage.getItem("friends"));
+  const [friends, setFriends] = useState(
+    JSON.parse(localStorage.getItem("friends"))
+  );
   const [requestingYou, setRequestingYou] = useState(
-    localStorage.getItem("requestingYou")
+    JSON.parse(localStorage.getItem("requestingYou"))
   );
   const [youRequested, setYouRequested] = useState(
-    localStorage.getItem("youRequested")
+    JSON.parse(localStorage.getItem("youRequested"))
   );
+  const [blocked, setBlocked] = useState(
+    JSON.parse(localStorage.getItem("blocked"))
+  );
+
+  useEffect(() => {
+    setFriends(JSON.parse(localStorage.getItem("friends")));
+    setRequestingYou(JSON.parse(localStorage.getItem("requestingYou")));
+    setYouRequested(JSON.parse(localStorage.getItem("youRequested")));
+    setBlocked(JSON.parse(localStorage.getItem("blocked")));
+    const interval = setInterval(() => {
+      setFriends(JSON.parse(localStorage.getItem("friends")));
+      setRequestingYou(JSON.parse(localStorage.getItem("requestingYou")));
+      setYouRequested(JSON.parse(localStorage.getItem("youRequested")));
+      setBlocked(JSON.parse(localStorage.getItem("blocked")));
+    }, 5000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   const handleOpen = () => {
     setOpen(true);
@@ -62,24 +83,32 @@ export default function FriendModal(props) {
       </p>
       <p id="simple-modal-description">
         Your Friends:
-        {JSON.parse(friends).map((friend) => (
+        {friends.map((friend) => (
           <Friend key={friend.id} friend={friend} status={"friend"} />
         ))}
       </p>
       <p id="simple-modal-description">
         People who wanna be one of Your Friends:
-        {JSON.parse(requestingYou).map((request) => (
+        {requestingYou.map((request) => (
           <Friend key={request.id} friend={request} status={"request"} />
         ))}
       </p>
       <p id="simple-modal-description">
         People You're Tryna be Friends with:
-        {JSON.parse(youRequested).map((yourRequest) => (
+        {youRequested.map((yourRequest) => (
           <Friend
             key={yourRequest.id}
             friend={yourRequest}
             status={"youRequested"}
           />
+        ))}
+      </p>
+      <p id="simple-modal-description">
+        People you've blocked:
+        {blocked.map((blockee) => (
+          <>
+            <Friend key={blockee.id} friend={blockee} status={"blocked"} />
+          </>
         ))}
       </p>
       {/* <FriendModal /> */}

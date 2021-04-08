@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# README - Invisible Cities FrontEnd v. 0.1 2/16/21
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Hey! Invisible Cities was my first stab at a chat app. This is the frontend.
 
-## Available Scripts
+I developed this as my final project for a full-stack web developmenmt bootcamp called FlatIron. To explore the technologies I learned over the course of 12 weeks, I chose to design a chat app in the style of the app MarcoPolo. It turns out that was an overly ambitious idea for my current level, but somehow after designing and redesigning this app over the course of 5 weeks, I have something that, for the most part, works.
 
-In the project directory, you can run:
+There is room for improvement, but it's time to turn this in. In this document, you'll find my notes relevant to the backend data model, controllers, and some of the things I'd like to develop when I get a chance to work on the next version of this app.
 
-### `yarn start`
+# Deprecated files
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Over the five weeks I spent on this project, I ended up scrapping the build and starting over several times. There are vestigial bits in the /src/deprecated folder just in case they may come up.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# Future Technologies
 
-### `yarn test`
+- perhaps for the next version, implementing stuff with GraphQL and websockets would help. There are probably some leftovers in the package.json and the deprecated files.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- additionally, this version stores a ton in localStorage. I think there's some sort of server-side temp session storage that would be way more secure, but I only started to learn about that this week and I wasn't about to risk another re-start.
 
-### `yarn build`
+- Some sort of testing needs to be written. My colleagues recommend JEST and I plan on checking it out for the next release.
+- It would be great to implement editing user profiles. There's some structure for it in the db, but the controller on the backend needs built out and so does the frontend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Nothing fancy, but it works
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- I was able to get a tiny bit of styling done before the deadline but not much at all. What's been done uses material ui.
+- Instead of websockets handling updating compnents, I used the useEffect hook. It works, but it's slooooooow. Really looking forward to getting websockets working with this project.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Open issues
 
-### `yarn eject`
+- two things I've noticed that I havent had a chance to correct: When a user uses the pull-down menus to make groups from their friends, the pull-down menus don't auro update :( More serious, when a user logs out, localStorage isn't completely clear and things look a little weird.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# user stories
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- once you get this working with the backend, a user can create an account, log in, search for friends, request friends and respond to friend requests, block friends, message groups, create and delete groups, and delete their own profile.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Backend can be found here: https://github.com/s-satsangi/invisible-cities-backend

@@ -1,8 +1,8 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import Login from "./components/login";
+import Login from "./components/user/login";
 import UserContainer from "./containers/UserContainer";
-import UserForm from "./components/UserForm";
+import UserForm from "./components/user/UserForm";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
   const [friends, setFriends] = useState([]);
   const [requestingYou, setRequestingYou] = useState([]);
   const [youRequested, setYouRequested] = useState([]);
+  const [blocked, setBlocked] = useState([]);
   const [groups, setGroups] = useState();
   const [messages, setMessages] = useState();
 
@@ -30,6 +31,7 @@ function App() {
     localStorage.setItem("friendsFetch", friendsFetch);
     localStorage.setItem("groups", groups);
     localStorage.setItem("messages", messages);
+    localStorage.setItem("blocked", blocked);
   }, [
     username,
     userId,
@@ -41,6 +43,7 @@ function App() {
     friendsFetch,
     groups,
     messages,
+    blocked,
   ]);
 
   const logout = () => {
@@ -124,6 +127,7 @@ function App() {
                 setYouRequested={setYouRequested}
                 setGroups={setGroups}
                 setMessages={setMessages}
+                setBlocked={setBlocked}
               />
             )}
           />

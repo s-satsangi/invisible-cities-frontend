@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Container, TextField } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 
 export default class UserForm extends Component {
   state = {
     username: "",
     password: "",
     submit: false,
+    error: "",
   };
 
   createUser = (event) => {
@@ -25,10 +27,14 @@ export default class UserForm extends Component {
       credentials: "include",
     })
       .then((res) => res.json())
-      .then((json) => {
-        if (json.status) throw json;
+      .catch((err) => {
+        this.setState({ error: err.message });
+        console.log("WE CAUGHT IT");
       })
-      .catch((err) => alert(`${err.message}`));
+      .then((json) => {
+        console.log("this is the error? " + json.error);
+        this.setState({ error: json.error });
+      });
     event.target.reset();
   };
 
@@ -41,6 +47,14 @@ export default class UserForm extends Component {
   render() {
     return (
       <Container>
+        {this.state.error ? (
+          <Alert severity="error">
+            {" "}
+            Sorry, something went wrong: <br />
+            {this.state.error}
+          </Alert>
+        ) : null}
+
         <form onSubmit={this.createUser}>
           <br />
           <TextField
